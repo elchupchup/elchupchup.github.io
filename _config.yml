@@ -1,0 +1,59 @@
+# Site
+name: 'The Frontier Watch'
+description: 'The Frontier Watch aims to inform a broad audience about technology that poses an existential risk to humanity, and it invites and helps its readers to work on solutions themselves'
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/favicon.ico'
+Url: 'https://thefrontierwatch.org'
+baseurl: ''
+disqus: ''
+email: 'Paul.hindoian@mail.utoronto.ca'
+mailchimp-list: ''
+
+include: ["_pages"]
+permalink: /:title/
+
+# Plugins
+plugins: 
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-seo-tag
+  
+authors:
+    Paul:
+      name:           Paul Hindoian
+      site:           https://thefrontierwatch.org
+      avatar:         /assets/images/avatar1.jpg
+      bio:            "bio. Update!"
+      email:          Paul.hindoian@mail.utoronto.ca 
+      twitter:        Provide twitter. Update! 
+
+   
+# Defaults
+defaults:
+
+  # all posts
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+      author: sal
+      avatar: /assets/images/avatar1.jpg
+      
+  # all pages
+  - scope:
+      path: "_pages"
+    values:
+      layout: page
+      
+# Syntax
+markdown: kramdown
+highlighter: rouge
+
+# Paginate
+paginate: 10
+
+
+
+# Exclude metadata and development time dependencies (like Grunt plugins)
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
