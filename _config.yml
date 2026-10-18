@@ -1,9 +1,8 @@
 # Site
 name: 'The Frontier Watch'
 description: 'The Frontier Watch aims to inform a broad audience about technology that poses an existential risk to humanity, and it invites and helps its readers to work on solutions themselves'
-logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
-Url: 'https://thefrontierwatch.org'
+url: 'https://thefrontierwatch.org'
 baseurl: ''
 disqus: ''
 email: 'Paul.hindoian@mail.utoronto.ca'
@@ -13,22 +12,20 @@ include: ["_pages"]
 permalink: /:title/
 
 # Plugins
-plugins: 
+plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
-  
-authors:
-    Paul:
-      name:           Paul Hindoian
-      site:           https://thefrontierwatch.org
-      avatar:         /assets/images/avatar1.jpg
-      bio:            "bio. Update!"
-      email:          Paul.hindoian@mail.utoronto.ca 
-      twitter:        Provide twitter. Update! 
 
-   
+authors:
+  paul:
+    name:           Paul Hindoian
+    site:           https://thefrontierwatch.org
+    avatar:         /assets/images/avatar1.jpg
+    bio:            ""
+    email:          Paul.hindoian@mail.utoronto.ca
+
 # Defaults
 defaults:
 
@@ -37,15 +34,14 @@ defaults:
       path: "_posts"
     values:
       layout: post
-      author: sal
-      avatar: /assets/images/avatar1.jpg
-      
+      author: paul
+
   # all pages
   - scope:
       path: "_pages"
     values:
       layout: page
-      
+
 # Syntax
 markdown: kramdown
 highlighter: rouge
@@ -53,7 +49,5 @@ highlighter: rouge
 # Paginate
 paginate: 10
 
-
-
-# Exclude metadata and development time dependencies (like Grunt plugins)
-exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+# Exclude metadata and development time dependencies
+exclude: [README.md, Gemfile, Gemfile.lock, package.json, node_modules]
