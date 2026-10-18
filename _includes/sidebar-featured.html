@@ -7,6 +7,7 @@
                 <h6 class="font-weight-bold">
                     <a href="{{site.baseurl}}{{ post.url }}" class="text-dark">{{ post.title }}</a>
                 </h6>
+                {% if post.categories.size > 0 %}
                 <span class="d-block text-muted">
                     In <span class="catlist">
                     {% for category in post.categories %}
@@ -14,6 +15,7 @@
                     {% endfor %}
                     </span>
                 </span>
+                {% endif %}
             </span>
             </li>                
         {% endfor %}   
