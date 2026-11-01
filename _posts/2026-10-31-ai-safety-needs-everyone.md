@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Humanity Needs You: Getting Involved in AI Safety"
+title: "Humanity Needs You to Join the AI Safety Conversation"
 categories: [AI Safety]
 ---
 
