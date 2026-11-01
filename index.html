@@ -1,47 +1,93 @@
 ---
 title: "Home"
 layout: default
-pagination:
-    enabled: true
 ---
 
-<div class="container-lg">
-<div class="row justify-content-center">
-<div class="col-md-12 col-lg-8 pt-4 pb-5">
+<style>
+  .fw-home { --fw-accent: #b3261e; --fw-rule: #1a1a1a; --fw-hair: #e2e2e2; }
+  .fw-home a { color: inherit; text-decoration: none; }
+  .fw-home a:hover .fw-head { text-decoration: underline; text-underline-offset: 3px; }
+  .fw-kicker { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--fw-accent); margin-bottom: .45rem; }
+  .fw-head { font-family: Georgia, "Times New Roman", serif; font-weight: 700; color: #111; line-height: 1.2; margin: 0 0 .5rem; }
+  .fw-byline { font-size: .8rem; color: #6b6b6b; }
+  .fw-byline strong { color: #333; font-weight: 600; }
+  .fw-dek { color: #444; margin: 0 0 .75rem; }
 
-    {% if paginator.page == 1 %}
-    <p class="lead text-muted mb-5">{{ site.description }}.</p>
-    {% endif %}
+  .fw-section { border-top: 3px solid var(--fw-rule); padding-top: .6rem; margin: 2.5rem 0 1.25rem; }
+  .fw-section h2 { font-size: .9rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin: 0; }
 
-    <h4 class="font-weight-bold spanborder"><span>Latest Articles</span></h4>
+  .fw-lead .fw-head { font-size: 2.3rem; line-height: 1.12; }
+  .fw-lead .fw-dek { font-size: 1.15rem; line-height: 1.55; }
 
-    {% for post in paginator.posts %}
-    {% assign post_author = site.authors[post.author] %}
-    <article class="pb-4 mb-4 border-bottom">
-        <h2 class="h4 font-weight-bold mb-2">
-            <a class="text-dark" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-        </h2>
-        <small class="d-block text-muted mb-2">
-            {% if post_author %}{{ post_author.name }} · {% endif %}{{ post.date | date: '%b %d, %Y' }}{% for category in post.categories %} · <a class="text-muted" href="{{ site.baseurl }}/categories.html#{{ category | downcase }}">{{ category }}</a>{% endfor %}
-        </small>
-        <p class="excerpt mb-2">
-            {{ post.excerpt | strip_html | strip_newlines | truncate: 220 }}
-        </p>
-        <a class="small font-weight-bold text-dark" href="{{ site.baseurl }}{{ post.url }}">Read article →</a>
-    </article>
+  .fw-side .fw-item { padding: 0 0 1.1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--fw-hair); }
+  .fw-side .fw-item:last-child { border-bottom: 0; margin-bottom: 0; }
+  .fw-side .fw-head { font-size: 1.15rem; }
+
+  .fw-grid .fw-card { padding-top: 1rem; border-top: 1px solid var(--fw-hair); height: 100%; }
+  .fw-grid .fw-head { font-size: 1.2rem; }
+  .fw-grid .fw-dek { font-size: .95rem; }
+
+  @media (min-width: 992px) {
+    .fw-side { border-left: 1px solid var(--fw-hair); padding-left: 2rem !important; }
+  }
+  @media (max-width: 991.98px) {
+    .fw-lead { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--fw-hair); }
+    .fw-lead .fw-head { font-size: 1.8rem; }
+  }
+</style>
+
+<div class="container fw-home pt-3 pb-5">
+
+  {% assign lead = site.posts.first %}
+
+  <div class="fw-section mt-2"><h2>Top Story</h2></div>
+
+  <div class="row">
+    <!-- Lead story -->
+    <div class="col-lg-8 fw-lead">
+      {% if lead %}
+      {% assign a = site.authors[lead.author] %}
+      <a href="{{ site.baseurl }}{{ lead.url }}">
+        {% if lead.categories.size > 0 %}<span class="fw-kicker">{{ lead.categories | first }}</span>{% endif %}
+        <h1 class="fw-head">{{ lead.title }}</h1>
+        <p class="fw-dek">{{ lead.excerpt | strip_html | strip_newlines | truncate: 260 }}</p>
+      </a>
+      <div class="fw-byline">{% if a %}By <strong>{{ a.name }}</strong> · {% endif %}{{ lead.date | date: '%B %-d, %Y' }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Next three -->
+    <div class="col-lg-4 fw-side">
+      {% for post in site.posts offset:1 limit:3 %}
+      {% assign a = site.authors[post.author] %}
+      <div class="fw-item">
+        <a href="{{ site.baseurl }}{{ post.url }}">
+          {% if post.categories.size > 0 %}<span class="fw-kicker">{{ post.categories | first }}</span>{% endif %}
+          <h3 class="fw-head">{{ post.title }}</h3>
+        </a>
+        <div class="fw-byline">{% if a %}By <strong>{{ a.name }}</strong> · {% endif %}{{ post.date | date: '%b %-d, %Y' }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if site.posts.size > 4 %}
+  <div class="fw-section"><h2>More Articles</h2></div>
+  <div class="row fw-grid">
+    {% for post in site.posts offset:4 %}
+    {% assign a = site.authors[post.author] %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="fw-card">
+        <a href="{{ site.baseurl }}{{ post.url }}">
+          {% if post.categories.size > 0 %}<span class="fw-kicker">{{ post.categories | first }}</span>{% endif %}
+          <h3 class="fw-head">{{ post.title }}</h3>
+          <p class="fw-dek">{{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>
+        </a>
+        <div class="fw-byline">{% if a %}By <strong>{{ a.name }}</strong> · {% endif %}{{ post.date | date: '%b %-d, %Y' }}</div>
+      </div>
+    </div>
     {% endfor %}
+  </div>
+  {% endif %}
 
-    {% if paginator.total_pages > 1 %}
-    <ul class="pagination mt-4">
-        {% if paginator.previous_page %}
-        <li class="page-item"><a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Newer</a></li>
-        {% endif %}
-        {% if paginator.next_page %}
-        <li class="page-item"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older &raquo;</a></li>
-        {% endif %}
-    </ul>
-    {% endif %}
-
-</div>
-</div>
 </div>
