@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AI Safety Needs Everyone"
+title: "Humanity Needs You: Getting Involved in AI Safety"
 categories: [AI Safety]
 ---
 
